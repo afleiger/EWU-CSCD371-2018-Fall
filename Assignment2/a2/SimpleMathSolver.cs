@@ -4,16 +4,19 @@ namespace SimpleMathSolver
 {
     class SimpleMathSolver
     {
+        static string formatErrorMsg = "Formatting Error -- Please submit in {Value}{Operator}{Value} form.";
+
         static void Main(string[] args)
         {
             double[] nums = null;
             bool IsQuitting = false;
-            String output = "Formatting Error -- Please submit in {Value}{Operator}{Value} form.";
+            string outputString = formatErrorMsg;
 
             Console.WriteLine("----Math Solver----");
 
             while (IsQuitting != true)
             {
+                outputString = formatErrorMsg;
                 Console.WriteLine(Environment.NewLine + "Enter a problem ('Q' to quit): ");
                 String input = Console.ReadLine();
                 if (input.Trim().ToLower().Equals("q"))
@@ -23,48 +26,25 @@ namespace SimpleMathSolver
 
                 else if (input.Contains("+"))
                 {
-                    nums = ParseNumbers(input.Split("+"));
-                    if (nums != null)
-                    {
-                        output = (nums[0] + nums[1]).ToString();
-                    }
+                    outputString = Addition(input);
                 }
 
                 else if (input.Contains("-"))
                 {
-                    nums = ParseNumbers(input.Split("-"));
-                    if (nums != null)
-                    {
-                        output = (nums[0] - nums[1]).ToString();
-                    }
+                    outputString = Subtraction(input);
                 }
 
                 else if (input.Contains("*"))
                 {
-                    nums = ParseNumbers(input.Split("*"));
-                    if (nums != null)
-                    {
-                        output = (nums[0] * nums[1]).ToString();
-                    }
+                    outputString = Multiplication(input);
                 }
 
                 else if (input.Contains("/"))
                 {
-                    nums = ParseNumbers(input.Split("/"));
-                    if (nums != null)
-                    {
-                        if(nums[1] != 0)
-                        {
-                            output = (nums[0] / nums[1]).ToString();
-                        }
-                        else
-                        {
-                            output = "Error -- Divide by zero.";
-                        }
-                    }
+                    outputString = Division(input);
                 }
 
-                Console.WriteLine($"Answer: {output}");
+                Console.WriteLine($"Output: {outputString}");
             }
 
 
@@ -78,6 +58,61 @@ namespace SimpleMathSolver
                 return doubleArray;
             }
             else return null;
+        }
+
+        static String Addition(String userInput)
+        {
+            String output = formatErrorMsg;
+
+            double[] nums = ParseNumbers(userInput.Split("+"));
+            if (nums != null)
+            {
+                output = (nums[0] + nums[1]).ToString();
+            }
+            return output;
+        }
+
+        static String Subtraction(String userInput)
+        {
+            String output = formatErrorMsg;
+
+            double[] nums = ParseNumbers(userInput.Split("-"));
+            if (nums != null)
+            {
+                output = (nums[0] - nums[1]).ToString();
+            }
+            return output;
+        }
+
+        static String Multiplication(String userInput)
+        {
+            String output = formatErrorMsg;
+
+            double[] nums = ParseNumbers(userInput.Split("*"));
+            if (nums != null)
+            {
+                output = (nums[0] * nums[1]).ToString();
+            }
+            return output;
+        }
+
+        static String Division(String userInput)
+        {
+            String output = formatErrorMsg;
+
+            double[] nums = ParseNumbers(userInput.Split("/"));
+            if (nums != null)
+            {
+                if (nums[1] != 0)
+                {
+                    output = (nums[0] / nums[1]).ToString();
+                }
+                else
+                {
+                    output = "Error -- Divide by zero.";
+                }
+            }
+            return output;
         }
     }
 }
