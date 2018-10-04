@@ -11,7 +11,7 @@ namespace SimpleMathSolver
             bool IsQuitting = false;
             string outputString = formatErrorMsg;
 
-            Console.WriteLine("----Math Solver----");
+            Console.WriteLine("----Math Solver----" + Environment.NewLine + "--Supported Operations: +, -, *, /, ^, %");
 
             while (IsQuitting != true)
             {
@@ -37,11 +37,6 @@ namespace SimpleMathSolver
                 {
                     outputString = Division(input);
                 }
-
-                else if (input.Contains("-"))
-                {
-                    outputString = Subtraction(input);
-                }
                 else if(input.Contains("^"))
                 {
                     outputString = Exponent(input);
@@ -50,6 +45,11 @@ namespace SimpleMathSolver
                 {
                     outputString = Modulus(input);
                 }
+                else if (input.Contains("-"))
+                {
+                    outputString = Subtraction(input);
+                }
+
 
                 Console.WriteLine($"Output: {outputString}");
             }
@@ -69,7 +69,6 @@ namespace SimpleMathSolver
                     firstNumber += c;
                 }
             }
-
             foreach (char c in stringArray[1])
             {
                 if (c == '!' || c == '@')
