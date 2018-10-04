@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace SimpleMathSolver
 {
@@ -42,6 +41,14 @@ namespace SimpleMathSolver
                 else if (input.Contains("-"))
                 {
                     outputString = Subtraction(input);
+                }
+                else if(input.Contains("^"))
+                {
+                    outputString = Exponent(input);
+                }
+                else if(input.Contains("%"))
+                {
+                    outputString = Modulus(input);
                 }
 
                 Console.WriteLine($"Output: {outputString}");
@@ -94,6 +101,30 @@ namespace SimpleMathSolver
             return output;
         }
 
+        static String Exponent(String userInput)
+        {
+            String output = formatErrorMsg;
+
+            double[] nums = ParseNumbers(userInput.Split("^"));
+            if(nums != null)
+            {
+                output = Math.Pow(nums[0], nums[1]).ToString();
+            }
+            return output;
+        }
+
+        static String Modulus(String userInput)
+        {
+            String output = formatErrorMsg;
+
+            double[] nums = ParseNumbers(userInput.Split("%"));
+            if(nums != null)
+            {
+                output = (nums[0] % nums[1]).ToString();
+            }
+            return output;
+        }
+
         static String Subtraction(String userInput)
         {
             String output = formatErrorMsg;
@@ -125,7 +156,6 @@ namespace SimpleMathSolver
                 {
                     convertedString += c;
                 }
-
             }
 
             double[] nums = null;
