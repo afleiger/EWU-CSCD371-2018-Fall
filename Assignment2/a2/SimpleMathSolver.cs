@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace SimpleMathSolver
 {
@@ -8,7 +9,6 @@ namespace SimpleMathSolver
 
         static void Main(string[] args)
         {
-            double[] nums = null;
             bool IsQuitting = false;
             string outputString = formatErrorMsg;
 
@@ -29,11 +29,6 @@ namespace SimpleMathSolver
                     outputString = Addition(input);
                 }
 
-                else if (input.Contains("-"))
-                {
-                    outputString = Subtraction(input);
-                }
-
                 else if (input.Contains("*"))
                 {
                     outputString = Multiplication(input);
@@ -44,16 +39,43 @@ namespace SimpleMathSolver
                     outputString = Division(input);
                 }
 
+                else if (input.Contains("-"))
+                {
+                    outputString = Subtraction(input);
+                }
+
                 Console.WriteLine($"Output: {outputString}");
             }
-
-
         }
 
         static double[] ParseNumbers(String[] stringArray)
         {
+            String firstNumber = "", secondNumber = "";
+            foreach(char c in stringArray[0])
+            {
+                if(c == '!' || c == '@')
+                {
+                    firstNumber += '-';
+                }
+                else
+                {
+                    firstNumber += c;
+                }
+            }
+
+            foreach (char c in stringArray[1])
+            {
+                if (c == '!' || c == '@')
+                {
+                    secondNumber += '-';
+                }
+                else
+                {
+                    secondNumber += c;
+                }
+            }
             double[] doubleArray = new double[2];
-            if (double.TryParse(stringArray[0].Trim(), out doubleArray[0]) && double.TryParse(stringArray[1].Trim(), out doubleArray[1]))
+            if (double.TryParse(firstNumber.Trim(), out doubleArray[0]) && double.TryParse(secondNumber.Trim(), out doubleArray[1]))
             {
                 return doubleArray;
             }
@@ -75,12 +97,60 @@ namespace SimpleMathSolver
         static String Subtraction(String userInput)
         {
             String output = formatErrorMsg;
+            int minusCount = 1;
 
-            double[] nums = ParseNumbers(userInput.Split("-"));
+            String trimInput = userInput.Trim();
+            if(trimInput.Contains("!") || trimInput.Contains("@"))
+            {
+                return output;
+            }
+
+            String convertedString = "";
+            foreach(char c in trimInput)
+            {
+                if (c == '-' && convertedString.Contains("-"))
+                {
+                    if (!convertedString.Contains("!"))
+                    {
+                        convertedString += "!";
+                        minusCount = 2;
+                    }
+                    else
+                    {
+                        convertedString += "@";
+                        minusCount = 3;
+                    }
+                }
+                else
+                {
+                    convertedString += c;
+                }
+
+            }
+
+            double[] nums = null;
+            switch (minusCount)
+            {
+                case 1:
+                    nums = ParseNumbers(convertedString.Split("-"));
+                    break;
+                case 2:
+                    nums = ParseNumbers(convertedString.Split("-"));
+                    if (nums == null)
+                    {
+                        nums = ParseNumbers(convertedString.Split("!"));
+                    }
+                    break;
+                case 3:
+                    nums = ParseNumbers(convertedString.Split("!"));
+                    break;
+            }
+
             if (nums != null)
             {
                 output = (nums[0] - nums[1]).ToString();
             }
+            
             return output;
         }
 

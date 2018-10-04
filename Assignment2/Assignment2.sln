@@ -2,9 +2,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "a2.test", "a2.test\a2.test.csproj", "{BBDA408F-637A-428A-BCC7-8B23F9C3EF19}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MathSolver.test", "a2.test\MathSolver.test.csproj", "{BBDA408F-637A-428A-BCC7-8B23F9C3EF19}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "a2", "a2\a2.csproj", "{70E01A8A-CE15-4743-BADC-F8914F4E88A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MathSolver", "a2\MathSolver.csproj", "{70E01A8A-CE15-4743-BADC-F8914F4E88A1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
