@@ -2,65 +2,53 @@
 
 namespace SimpleMathSolver
 {
-    class SimpleMathSolver
+    public class SimpleMathSolver
     {
         static string formatErrorMsg = "Formatting Error -- Please submit in {Value}{Operator}{Value} form.";
 
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            bool IsQuitting = false;
             string outputString = formatErrorMsg;
 
-            Console.WriteLine("----Math Solver----" + Environment.NewLine + "--Supported Operations: +, -, *, /, ^, %");
+            outputString = formatErrorMsg;
+            Console.WriteLine("Enter a problem: ");
+            String input = Console.ReadLine();
 
-            while (IsQuitting != true)
+            if (input.Contains("+"))
             {
-                outputString = formatErrorMsg;
-                Console.WriteLine(Environment.NewLine + "Enter a problem ('Q' to quit): ");
-                String input = Console.ReadLine();
-                if (input.Trim().ToLower().Equals("q"))
-                {
-                    IsQuitting = true;
-                }
-
-                else if (input.Contains("+"))
-                {
-                    outputString = Addition(input);
-                }
-
-                else if (input.Contains("*"))
-                {
-                    outputString = Multiplication(input);
-                }
-
-                else if (input.Contains("/"))
-                {
-                    outputString = Division(input);
-                }
-                else if(input.Contains("^"))
-                {
-                    outputString = Exponent(input);
-                }
-                else if(input.Contains("%"))
-                {
-                    outputString = Modulus(input);
-                }
-                else if (input.Contains("-"))
-                {
-                    outputString = Subtraction(input);
-                }
-
-
-                Console.WriteLine($"Output: {outputString}");
+                outputString = Addition(input);
             }
+            else if (input.Contains("*"))
+            {
+                outputString = Multiplication(input);
+            }
+
+            else if (input.Contains("/"))
+            {
+                outputString = Division(input);
+            }
+            else if (input.Contains("^"))
+            {
+                outputString = Exponent(input);
+            }
+            else if (input.Contains("%"))
+            {
+                outputString = Modulus(input);
+            }
+            else if (input.Contains("-"))
+            {
+                outputString = Subtraction(input);
+            }
+
+            Console.WriteLine($"Output: {outputString}");
         }
 
         static double[] ParseNumbers(String[] stringArray)
         {
             String firstNumber = "", secondNumber = "";
-            foreach(char c in stringArray[0])
+            foreach (char c in stringArray[0])
             {
-                if(c == '!' || c == '@')
+                if (c == '!' || c == '@')
                 {
                     firstNumber += '-';
                 }
@@ -105,7 +93,7 @@ namespace SimpleMathSolver
             String output = formatErrorMsg;
 
             double[] nums = ParseNumbers(userInput.Split("^"));
-            if(nums != null)
+            if (nums != null)
             {
                 output = Math.Pow(nums[0], nums[1]).ToString();
             }
@@ -117,7 +105,7 @@ namespace SimpleMathSolver
             String output = formatErrorMsg;
 
             double[] nums = ParseNumbers(userInput.Split("%"));
-            if(nums != null)
+            if (nums != null)
             {
                 output = (nums[0] % nums[1]).ToString();
             }
@@ -130,13 +118,13 @@ namespace SimpleMathSolver
             int minusCount = 1;
 
             String trimInput = userInput.Trim();
-            if(trimInput.Contains("!") || trimInput.Contains("@"))
+            if (trimInput.Contains("!") || trimInput.Contains("@"))
             {
                 return output;
             }
 
             String convertedString = "";
-            foreach(char c in trimInput)
+            foreach (char c in trimInput)
             {
                 if (c == '-' && convertedString.Contains("-"))
                 {
@@ -179,7 +167,7 @@ namespace SimpleMathSolver
             {
                 output = (nums[0] - nums[1]).ToString();
             }
-            
+
             return output;
         }
 
