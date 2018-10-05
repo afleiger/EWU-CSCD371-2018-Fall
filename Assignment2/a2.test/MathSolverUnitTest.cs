@@ -230,6 +230,17 @@ namespace MathSolver.test
         }
 
         [TestMethod]
+        public void ModulusByZero()
+        {
+            String testExpression = "42 % 0";
+            String expectedAnswer = "NaN";
+
+            ConsoleAssert.Expect(introText + $@"
+<<{testExpression}
+>>Output: {expectedAnswer}", SimpleMathSolver.SimpleMathSolver.Main);
+        }
+
+        [TestMethod]
         public void MaxIntValues()
         {
             String testExpression = int.MaxValue + " - " + int.MaxValue;
