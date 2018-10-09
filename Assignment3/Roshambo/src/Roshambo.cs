@@ -19,8 +19,16 @@ namespace Roshambo
                 (string player, string computer) round = PlayRound();
 
                 Console.WriteLine($"{newLine}You picked: {round.player}{newLine}Computer picked: {round.computer}");
-                playerHealth -= DetermineDamage(round.player, round.computer);
-                compHealth -= DetermineDamage(round.computer, round.player);
+
+                if (round.player == round.computer)
+                {
+                    Console.WriteLine("-------------------------------------------->Draw");
+                }
+                else
+                {
+                    playerHealth -= DetermineDamage(round.player, round.computer);
+                    compHealth -= DetermineDamage(round.computer, round.player);
+                }
 
                 if (playerHealth < 1)
                 {
@@ -29,6 +37,7 @@ namespace Roshambo
                     playerHealth = 100;
                     compHealth = 100;
                 }
+
                 if (compHealth < 1)
                 {
                     Console.WriteLine($"{newLine}----YOU WIN!!!----{newLine}Would you like to play again ('y' or 'n')?");
@@ -99,7 +108,7 @@ namespace Roshambo
 
         public static bool PromptForContinue()
         {
-            switch(Console.ReadLine())
+            switch (Console.ReadLine())
             {
                 case "y":
                     return true;
