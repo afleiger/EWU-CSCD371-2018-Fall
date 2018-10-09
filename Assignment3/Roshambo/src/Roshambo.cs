@@ -32,16 +32,14 @@ namespace Roshambo
 
                 if (playerHealth < 1)
                 {
-                    Console.WriteLine($"{newLine}----YOU LOSE!!!----{newLine}Would you like to play again ('y' or 'n')?");
-                    playAgain = PromptForContinue();
+                    playAgain = PromptForContinue("LOSE");
                     playerHealth = 100;
                     compHealth = 100;
                 }
 
                 if (compHealth < 1)
                 {
-                    Console.WriteLine($"{newLine}----YOU WIN!!!----{newLine}Would you like to play again ('y' or 'n')?");
-                    playAgain = PromptForContinue();
+                    playAgain = PromptForContinue("WIN");
                     playerHealth = 100;
                     compHealth = 100;
                 }
@@ -58,7 +56,7 @@ namespace Roshambo
         public static string PromptPlayer()
         {
             Console.WriteLine("Enter 'rock', 'paper', or 'scissors':");
-            return Console.ReadLine().ToLower();
+            return Console.ReadLine().ToLower().Trim();
         }
 
         public static string RandomChoice()
@@ -106,13 +104,11 @@ namespace Roshambo
             return 0;
         }
 
-        public static bool PromptForContinue()
+        public static bool PromptForContinue(string outcome)
         {
-            switch (Console.ReadLine())
-            {
-                case "y":
-                    return true;
-            }
+            Console.WriteLine($"{newLine}----YOU {outcome}!!!----{newLine}Would you like to play again ('y' or 'n')?");
+            if (Console.ReadLine().ToLower().Trim() == "y")
+                return true;
             return false;
         }
     }
