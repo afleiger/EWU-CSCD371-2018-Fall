@@ -1,4 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using IntelliTect.TestTools.Console;
+using System;
 
 namespace Roshambo.Tests
 {
@@ -55,6 +57,23 @@ namespace Roshambo.Tests
             int damageTaken = Roshambo.DetermineDamage(round.player, round.comp);
             //assert
             Assert.AreEqual(damageTaken, 0);
+        }
+
+        [TestMethod]
+        public void PlayRound_ReturnsPlayerValue()
+        {
+            string playerInput = "rock";
+            Assert.AreEqual(Roshambo.PlayRound($"{playerInput}").player, playerInput);
+        }
+
+        [TestMethod]
+        public void PlayRound_ReturnsComputerValue()
+        {
+            string playerInput = "rock";
+            string computerChoice = Roshambo.PlayRound($"{playerInput}").computer;
+            Assert.IsTrue(computerChoice == "rock" ||
+                computerChoice == "paper" ||
+                computerChoice == "scissors");
         }
     }
 }

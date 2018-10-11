@@ -8,15 +8,22 @@ namespace Roshambo
 
         public static void Main(string[] args)
         {
-            int playerHealth = 100, compHealth = 100;
-            bool playAgain = true;
 
             Console.WriteLine("----Roshambo----");
+            while (PlayGame());
+            Console.WriteLine("Thanks for playing!");
+        }
+
+        public static bool PlayGame()
+        {
+            int playerHealth = 100, compHealth = 100;
+
             do
             {
                 Console.WriteLine($"Player HP: {playerHealth}        Computer HP: {compHealth}");
 
-                (string player, string computer) round = PlayRound();
+                Console.Write($"{newLine}Enter 'rock', 'paper', or 'scissors':");
+                (string player, string computer) round = PlayRound(Console.ReadLine().ToLower().Trim());
 
                 Console.WriteLine($"{newLine}You picked: {round.player}{newLine}Computer picked: {round.computer}");
 
@@ -29,34 +36,19 @@ namespace Roshambo
                     playerHealth -= DetermineDamage(round.player, round.computer);
                     compHealth -= DetermineDamage(round.computer, round.player);
                 }
+            } while (playerHealth > 0 && compHealth > 0);
 
-                if (playerHealth < 1)
-                {
-                    playAgain = PromptForContinue("LOSE");
-                    playerHealth = 100;
-                    compHealth = 100;
-                }
+            if (playerHealth < 1)
+                return PromptForContinue("LOSE");
 
-                if (compHealth < 1)
-                {
-                    playAgain = PromptForContinue("WIN");
-                    playerHealth = 100;
-                    compHealth = 100;
-                }
-            } while (playAgain);
+            return PromptForContinue("WIN");
+
         }
 
-        public static (string player, string computer) PlayRound()
+        public static (string player, string computer) PlayRound(string player)
         {
-            string player = PromptPlayer();
             string computer = RandomChoice();
             return (player, computer);
-        }
-
-        public static string PromptPlayer()
-        {
-            Console.WriteLine("Enter 'rock', 'paper', or 'scissors':");
-            return Console.ReadLine().ToLower().Trim();
         }
 
         public static string RandomChoice()
