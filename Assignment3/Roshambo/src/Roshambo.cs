@@ -4,49 +4,65 @@ namespace Roshambo
 {
     public class Roshambo
     {
-        public static string newLine = Environment.NewLine;
+        private static string newLine = Environment.NewLine;
 
         public static void Main(string[] args)
         {
 
             Console.WriteLine("----Roshambo----");
-            while (PlayGame());
-            Console.WriteLine("Thanks for playing!");
-        }
-
-        public static bool PlayGame()
-        {
-            int playerHealth = 100, compHealth = 100;
+            (int player, int comp) healthValues = GetStartingHealthValues();
 
             do
             {
-                Console.WriteLine($"Player HP: {playerHealth}        Computer HP: {compHealth}");
+                Console.WriteLine($"Player HP: {healthValues.player}        Computer HP: {healthValues.comp}");
 
-                Console.Write($"{newLine}Enter 'rock', 'paper', or 'scissors':");
-                (string player, string computer) round = PlayRound(Console.ReadLine().ToLower().Trim());
+                (string player, string computer) choice = PlayRound();
 
-                Console.WriteLine($"{newLine}You picked: {round.player}{newLine}Computer picked: {round.computer}");
+                Console.WriteLine($"{newLine}You picked: {choice.player}{newLine}Computer picked: {choice.computer}");
 
-                if (round.player == round.computer)
+                if (choice.player == choice.computer)
                 {
                     Console.WriteLine("-------------------------------------------->Draw");
                 }
                 else
                 {
-                    playerHealth -= DetermineDamage(round.player, round.computer);
-                    compHealth -= DetermineDamage(round.computer, round.player);
+                    healthValues.player -= DetermineDamage(choice.player, choice.computer);
+                    healthValues.comp -= DetermineDamage(choice.computer, choice.player);
                 }
-            } while (playerHealth > 0 && compHealth > 0);
 
-            if (playerHealth < 1)
+            } while (EndGameCheck( ref healthValues));
+
+
+            Console.WriteLine("Thanks for playing!");
+        }
+
+        public static bool EndGameCheck( ref (int player, int computer) healthValues)
+        {
+            if(healthValues.player < 1)
+            {
+                healthValues = GetStartingHealthValues();
                 return PromptForContinue("LOSE");
+            }
 
-            return PromptForContinue("WIN");
+            if(healthValues.computer < 1)
+            {
+                healthValues = GetStartingHealthValues();
+                return PromptForContinue("WIN");
+            }
+
+            return true;
 
         }
 
-        public static (string player, string computer) PlayRound(string player)
+        public static (int playerHealth, int compHealth) GetStartingHealthValues()
         {
+            return (100, 100);
+        }
+
+        public static (string player, string computer) PlayRound()
+        {
+            Console.Write($"{newLine}Enter 'rock', 'paper', or 'scissors':");
+            string player = Console.ReadLine().ToLower().Trim();
             string computer = RandomChoice();
             return (player, computer);
         }
