@@ -1,28 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
+using CalendarItem;
 
 namespace Course
 {
-    public class Course
-    {
-        private string _lastName;
-        private string _firstName;
+    public class Course : CalendarItem.CalendarItem
+    { 
         private int _studentCount;
-        private List<string> _days;
 
-        public int Id { get; }
+        public string ClassDays { get; set; }
 
-        public string Title { get; set; }
+        public int StartTime { get; set; }
 
-        public decimal Tuition { get; set; }
+        public int EndTime { get; set; }
 
-        public List<string> ClassDays { get; set; }
-
-        public decimal TotalRevenue
+        public int ClassLength
         {
             get
             {
-                return Tuition * StudentCount;
+                return EndTime - StartTime;
+            }
+            set
+            {
+                EndTime = StartTime + value;
             }
         }
 
@@ -41,21 +41,27 @@ namespace Course
             }
         }
 
+        public string InstructorFirstName { get; set; }
+
+        public string InstructorLastName { get; set; }
+
         public string InstructorName
         {
             get
             {
-                return $"{_lastName}, {_firstName}";
+                return $"{InstructorLastName}, {InstructorFirstName}";
             }
-            set
-            {
-                string[] splitName = value.Split(' ');
-                if (!string.IsNullOrEmpty(splitName[0]) && !string.IsNullOrEmpty(splitName[1]))
-                {
-                    _firstName = splitName[0];
-                    _lastName = splitName[1];
-                }
-            }
+        }
+
+        public Course(int id, string classTitle, string instructorFirstName, string instructorLastName, string classDays, int startTime, int classLength, int studentCount) :
+            base(id, classTitle)
+        {
+            InstructorFirstName = instructorFirstName;
+            InstructorLastName = instructorLastName;
+            ClassDays = classDays;
+            StartTime = startTime;
+            ClassLength = classLength;
+            StudentCount = studentCount;
         }
 
     }
