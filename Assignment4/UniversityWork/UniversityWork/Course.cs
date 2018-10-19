@@ -4,12 +4,15 @@ namespace UniversityWork
 {
     public class Course : CalendarItem
     {
-
         private string _profLastName;
         private string _profFirstName;
         private int _startHour;
 
-        private static int _instanceCount = 0;
+        //-->Properties
+        public int ClassLength { get; set; }
+        public int StudentCount { get; set; }
+        public string ClassDays { get; set; }
+        public static int InstanceCount { get; set; }
 
         public string ProfessorName
         {
@@ -53,24 +56,7 @@ namespace UniversityWork
                 return (StartHour + ClassLength - 1) % 12 + 1;
             }
         }
-
-        public int ClassLength { get; set; }
-
-        public int StudentCount { get; set; }
-
-        public string ClassDays { get; set; }
-
-        public static int InstanceCount
-        {
-            get
-            {
-                return _instanceCount;
-            }
-            set
-            {
-                _instanceCount = value;
-            }
-        }
+        //-->end Properties
 
         public Course(string id, string title, string location, string professorName, int startHour, string classDays = "MTWThF", int classLength = 1, int studentCount = 0 )
             :base(id, title, location)
@@ -93,23 +79,17 @@ Days: {ClassDays}       StartTime: {StartHour}:00       EndTime: {EndHour}:00";
 
         public void Deconstruct(out string id, out string title, out string location, out string professorName)
         {
-            id = ID;
-            title = Title;
-            location = Location;
+            (id, title, location) = this;
             professorName = ProfessorName;
         }
 
         public void Deconstruct(out string id, out string title, out string location, out string professorName, out int startHour, out string classDays, out int classLength, out int studentCount )
         {
-            id = ID;
-            title = Title;
-            location = Location;
-            professorName = ProfessorName;
+            (id, title, location, professorName) = this;
             startHour = StartHour;
             classDays = ClassDays;
             classLength = ClassLength;
             studentCount = StudentCount;
         }
-
     }
 }

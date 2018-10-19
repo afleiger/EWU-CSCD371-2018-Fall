@@ -6,10 +6,11 @@ namespace UniversityWork
 {
     public abstract class CalendarItem
     {
-
+        //-->Properties
         public string ID { get; set; }
         public string Title { get; set; }
         public string Location { get; set; }
+        //-->End Properties
 
         public CalendarItem(string id = "", string title = "", string location = "")
         {

@@ -19,5 +19,9 @@ namespace UniversityWork
             }
         }
 
+        public static string DisplayCalendarItem(CalendarItem item)
+        {
+            return item.GetSummaryInformation();
+        }
     }
 }
