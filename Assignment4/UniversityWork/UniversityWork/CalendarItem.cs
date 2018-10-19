@@ -24,5 +24,7 @@ namespace UniversityWork
             title = Title;
             location = Location;
         }
+
+        public abstract string GetSummaryInformation();
     }
 }

@@ -30,9 +30,10 @@ namespace UniversityWork
             InstanceCount++;
         }
 
-        public string GetSummaryInformation()
+        public override string GetSummaryInformation()
         {
-            return "";
+            return $@"-------Event_Information-------
+Id: {ID}        Title: {Title}      Location: {Location}        Time: {TimeInformation}";
         }
     }
 }

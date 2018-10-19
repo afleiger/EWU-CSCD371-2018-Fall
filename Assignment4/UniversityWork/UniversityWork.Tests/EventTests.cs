@@ -5,6 +5,12 @@ namespace UniversityWork.Tests
     [TestClass]
     public class EventTests
     {
+        [TestInitialize]
+        public void Test_Initialize()
+        {
+            Event.InstanceCount = 0;
+        }
+
         [TestMethod]
         public void InstantiationTest_CreateManyEventInstances_ReturnsCorrectCount()
         {

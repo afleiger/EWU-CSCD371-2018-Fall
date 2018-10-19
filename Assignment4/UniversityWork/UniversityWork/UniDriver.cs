@@ -6,5 +6,18 @@ namespace UniversityWork
 {
     public static class UniDriver
     {
+        public static string Display(object @object)
+        {
+            switch(@object)
+            {
+                case CalendarItem item:
+                    return item.GetSummaryInformation();
+                    
+                default:
+                    return @object.ToString();
+                    
+            }
+        }
+
     }
 }

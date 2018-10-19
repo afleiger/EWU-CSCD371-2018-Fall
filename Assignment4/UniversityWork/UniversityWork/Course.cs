@@ -72,7 +72,6 @@ namespace UniversityWork
             }
         }
 
-
         public Course(string id, string title, string location, string professorName, int startHour, string classDays = "MTWThF", int classLength = 1, int studentCount = 0 )
             :base(id, title, location)
         {
@@ -85,9 +84,11 @@ namespace UniversityWork
             InstanceCount++;
         }
 
-        public string GetSummaryInformation()
+        public override string GetSummaryInformation()
         {
-            return "";
+            return $@"-------Course_Information-------
+Id: {ID}        Title: {Title}      Instructor: {ProfessorName}     Location: {Location}
+Days: {ClassDays}       StartTime: {StartHour}:00       EndTime: {EndHour}:00";
         }
 
         public void Deconstruct(out string id, out string title, out string location, out string professorName)

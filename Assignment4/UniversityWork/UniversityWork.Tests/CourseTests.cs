@@ -5,6 +5,12 @@ namespace UniversityWork.Tests
     [TestClass]
     public class CourseTests
     {
+        [TestInitialize]
+        public void Test_Initialize()
+        {
+            Course.InstanceCount = 0;
+        }
+
         [TestMethod]
         public void InstantiationTest_CreateManyCourseInstances_ReturnsCorrectCount()
         {
