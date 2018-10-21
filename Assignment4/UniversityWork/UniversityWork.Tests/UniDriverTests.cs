@@ -18,7 +18,7 @@ namespace UniversityWork.Tests
         }
 
         [TestMethod]
-        public void DisplayCalendarItem()
+        public void DisplayCalendarItem_TestPolyMorphism_Success()
         {
             Course course = new Course("42", "JavaFx Gui Programming", "CEB 110", "Andrew.Fleiger", 8, "MWF", 2, 30);
             Event eve = new Event("10", "Dance Party", "My House", "Always");

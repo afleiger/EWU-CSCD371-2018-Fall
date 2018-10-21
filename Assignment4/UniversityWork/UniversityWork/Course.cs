@@ -7,10 +7,10 @@ namespace UniversityWork
         private string _profLastName;
         private string _profFirstName;
         private int _startHour;
+        private int _studentCount;
 
         //-->Properties
         public int ClassLength { get; set; }
-        public int StudentCount { get; set; }
         public string ClassDays { get; set; }
         public static int InstanceCount { get; set; }
 
@@ -22,11 +22,11 @@ namespace UniversityWork
             }
             set
             {
-                if(!value.Contains("."))
+                if (!value.Contains("."))
                     return;
 
                 string[] parts = value.Split('.');
-                if(!string.IsNullOrEmpty(parts[0]) && !string.IsNullOrEmpty(parts[1]))
+                if (!string.IsNullOrEmpty(parts[0]) && !string.IsNullOrEmpty(parts[1]))
                 {
                     _profLastName = parts[1];
                     _profFirstName = parts[0];
@@ -42,7 +42,7 @@ namespace UniversityWork
             }
             set
             {
-                if(value > 0 && value < 13)
+                if (value > 0 && value < 13)
                 {
                     _startHour = value;
                 }
@@ -56,10 +56,25 @@ namespace UniversityWork
                 return (StartHour + ClassLength - 1) % 12 + 1;
             }
         }
+
+        public int StudentCount
+        {
+            get
+            {
+                return _studentCount;
+            }
+            set
+            {
+                if (value >= 0)
+                {
+                    _studentCount = value;
+                }
+            }
+        }
         //-->end Properties
 
-        public Course(string id, string title, string location, string professorName, int startHour, string classDays = "MTWThF", int classLength = 1, int studentCount = 0 )
-            :base(id, title, location)
+        public Course(string id, string title, string location, string professorName, int startHour, string classDays = "MTWThF", int classLength = 1, int studentCount = 0)
+            : base(id, title, location)
         {
             ProfessorName = professorName;
             StartHour = startHour;
@@ -83,7 +98,7 @@ Days: {ClassDays}       StartTime: {StartHour}:00       EndTime: {EndHour}:00";
             professorName = ProfessorName;
         }
 
-        public void Deconstruct(out string id, out string title, out string location, out string professorName, out int startHour, out string classDays, out int classLength, out int studentCount )
+        public void Deconstruct(out string id, out string title, out string location, out string professorName, out int startHour, out string classDays, out int classLength, out int studentCount)
         {
             (id, title, location, professorName) = this;
             startHour = StartHour;

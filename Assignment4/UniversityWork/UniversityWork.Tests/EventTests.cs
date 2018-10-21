@@ -15,6 +15,45 @@ namespace UniversityWork.Tests
         }
 
         [TestMethod]
+        public void SetTimeInformation_ChangeValue_Success()
+        {
+            Event.TimeInformation = "Next Week On Tuesday";
+
+            Assert.AreEqual("Next Week On Tuesday", Event.TimeInformation);
+        }
+
+        [TestMethod]
+        public void SetTitle_ChangeTitleValue_Success()
+        {
+            Event.Title = "Board Game Night";
+
+            Assert.AreEqual("Board Game Night", Event.Title);
+        }
+
+        [TestMethod]
+        public void SetId_ChangeIdValue_Success()
+        {
+            Event.ID = "424242";
+
+            Assert.AreEqual("424242", Event.ID);
+        }
+
+        [TestMethod]
+        public void SetLocation_ChangeLocationValue_Success()
+        {
+            Event.Location = "My House";
+
+            Assert.AreEqual("My House", Event.Location);
+        }
+
+        [TestMethod]
+        public void GetSummaryInformation_CallMethod_Success()
+        {
+            Assert.AreEqual(@"-------Event_Information-------
+Id: 42        Title: Groovy Shoes      Location: Spokane Arena        Time: 7pm", Event.GetSummaryInformation());
+        }
+
+        [TestMethod]
         public void Deconstructor_CallDeconstructor_Success()
         {
             (string id, string title, string location, string time) = Event;
