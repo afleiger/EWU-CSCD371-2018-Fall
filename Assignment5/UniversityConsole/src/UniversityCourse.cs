@@ -73,7 +73,7 @@ namespace src
         }
         //-->end Properties
 
-        public UniversityCourse(string id, string title, string location, string professorName, int startHour, string classDays = "MTWThF", int classLength = 1, int studentCount = 0)
+        public UniversityCourse(string id, string title, string location, string professorName = "", int startHour = 6, string classDays = "MTWThF", int classLength = 1, int studentCount = 0)
             : base(id, title, location)
         {
             ProfessorName = professorName;
@@ -87,8 +87,7 @@ namespace src
 
         public override string GetSummaryInformation()
         {
-            return $@"-------Course_Information-------
-Id: {ID}        Title: {Title}      Instructor: {ProfessorName}     Location: {Location}
+            return $@"Id: {ID}        Title: {Title}      Instructor: {ProfessorName}     Location: {Location}
 Days: {ClassDays}       StartTime: {StartHour}:00       EndTime: {EndHour}:00";
         }
 

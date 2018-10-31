@@ -4,7 +4,7 @@ using System.Text;
 
 namespace src
 {
-    public abstract class CalendarItem
+    public abstract class CalendarItem : IEvent
     {
         //-->Properties
         public string ID { get; set; }

@@ -11,7 +11,7 @@ namespace src
         public static int InstanceCount { get; set; }
         //-->End Properties
 
-        public Event(string id, string title, string location, string timeInformation)
+        public Event(string id, string title, string location, string timeInformation = "")
             : base(id, title, location)
         {
             TimeInformation = timeInformation;
@@ -20,8 +20,7 @@ namespace src
 
         public override string GetSummaryInformation()
         {
-            return $@"-------Event_Information-------
-Id: {ID}        Title: {Title}      Location: {Location}        Time: {TimeInformation}";
+            return $@"Id: {ID}        Title: {Title}      Location: {Location}        Time: {TimeInformation}";
         }
 
         public void Deconstruct(out string id, out string title, out string location, out string time)
