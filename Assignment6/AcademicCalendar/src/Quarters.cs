@@ -5,7 +5,7 @@ using System.Text;
 namespace src
 {
     [Flags]
-    public enum Quarters
+    public enum Quarters : byte
     {
         Fall = 1,
         Winter = 2,

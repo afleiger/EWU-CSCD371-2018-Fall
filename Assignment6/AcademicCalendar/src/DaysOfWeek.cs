@@ -5,7 +5,7 @@ using System.Text;
 namespace src
 {
     [Flags]
-    public enum DaysOfWeek
+    public enum DaysOfWeek : byte
     {
         Monday = 1,
         Tuesday = 2,

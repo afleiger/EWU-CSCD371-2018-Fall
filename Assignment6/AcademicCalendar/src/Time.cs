@@ -6,11 +6,11 @@ namespace src
 {
     public struct Time
     {
-        private static int _hour;
-        private static int _minute;
-        private static int _second;
+        private static byte _hour;
+        private static byte _minute;
+        private static byte _second;
 
-        public int Hour
+        public byte Hour
         {
             get
             {
@@ -24,7 +24,7 @@ namespace src
                 }
             }
         }
-        public int Minute
+        public byte Minute
         {
             get
             {
@@ -38,7 +38,7 @@ namespace src
                 }
             }
         }
-        public int Second
+        public byte Second
         {
             get
             {
@@ -53,11 +53,11 @@ namespace src
             }
         }
 
-        public Time(int hour, int minute, int second)
+        public Time(byte hour, byte minute, byte second)
         {
             Second = second;
             Minute = minute;
-            Second = second;
+            Hour = hour;
         }
     }
 }

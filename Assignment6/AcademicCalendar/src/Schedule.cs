@@ -4,14 +4,20 @@ using System.Text;
 
 namespace src
 {
-    public struct Schedule
+    public readonly struct Schedule
     {
-        private static DaysOfWeek _days;
+        public DaysOfWeek Days { get; }
+        public Quarters Quarter { get; }
+        public Time StartTime { get; }
+        public TimeSpan Duration { get; }
 
 
-        public Schedule(DaysOfWeek days)
+        public Schedule(DaysOfWeek days, Quarters quarter, Time startTime, TimeSpan duration)
         {
-            _days = DaysOfWeek.Monday | DaysOfWeek.Tuesday | DaysOfWeek.Wednesday;
+            Days = days;
+            Quarter = quarter;
+            StartTime = startTime;
+            Duration = duration;
         }
     }
 }
