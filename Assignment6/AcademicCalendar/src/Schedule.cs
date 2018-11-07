@@ -4,7 +4,7 @@ using System.Text;
 
 namespace src
 {
-    public readonly struct Schedule
+    public readonly struct MySchedule
     {
         public DaysOfWeek Days { get; }
         public Quarters Quarter { get; }
@@ -12,7 +12,7 @@ namespace src
         public TimeSpan Duration { get; }
 
 
-        public Schedule(DaysOfWeek days, Quarters quarter, Time startTime, TimeSpan duration)
+        public MySchedule(DaysOfWeek days, Quarters quarter, Time startTime, TimeSpan duration)
         {
             Days = days;
             Quarter = quarter;

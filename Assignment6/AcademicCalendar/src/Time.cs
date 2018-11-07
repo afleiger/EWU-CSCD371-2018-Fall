@@ -4,7 +4,7 @@ using System.Text;
 
 namespace src
 {
-    public struct Time
+    public readonly struct Time
     {
         private static byte _hour;
         private static byte _minute;
@@ -18,9 +18,13 @@ namespace src
             }
             private set
             {
-                if(value > 0 && value < 25)
+                if(value >= 0 && value < 24)
                 {
                     _hour = value;
+                }
+                else
+                {
+                    _hour = 0;
                 }
             }
         }
@@ -32,9 +36,13 @@ namespace src
             }
             private set
             {
-                if (value > 0 && value < 61)
+                if (value >= 0 && value < 60)
                 {
                     _minute = value;
+                }
+                else
+                {
+                    _minute = 0;
                 }
             }
         }
@@ -46,9 +54,13 @@ namespace src
             }
             private set
             {
-                if (value > 0 && value < 61)
+                if (value >= 0 && value < 60)
                 {
                     _second = value;
+                }
+                else
+                {
+                    _second = 0;
                 }
             }
         }

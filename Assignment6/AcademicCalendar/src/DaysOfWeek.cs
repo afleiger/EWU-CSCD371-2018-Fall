@@ -12,7 +12,7 @@ namespace src
         Wednesday = 4,
         Thursday = 8,
         Friday = 16,
-        Saturdday = 32,
+        Saturday = 32,
         Sunday = 64
     }
 }
