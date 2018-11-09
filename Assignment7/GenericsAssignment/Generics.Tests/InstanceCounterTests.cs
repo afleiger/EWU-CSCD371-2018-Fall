@@ -1,4 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Threading;
 using src;
 
 namespace Generics.Tests
@@ -20,7 +21,10 @@ namespace Generics.Tests
             Assert.AreEqual(2, InstanceCounter.InstanceCount);
 
             ic.Dispose();
+            ic = null;
+
             ic2.Dispose();
+            ic2 = null;
         }
 
         [TestMethod]
@@ -33,6 +37,7 @@ namespace Generics.Tests
             Assert.AreEqual(1, InstanceCounter.InstanceCount);
 
             ic.Dispose();
+            ic = null;
 
             Assert.AreEqual(0, InstanceCounter.InstanceCount);
         }
