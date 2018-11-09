@@ -7,7 +7,7 @@ namespace Generics.Tests
     public class InstanceCounterTests
     {
         [TestMethod]
-        public void TestMethod1()
+        public void InstanceCounter_CreateSeveralInstances_InstanceCountIncrements()
         {
             Assert.AreEqual(0, InstanceCounter.InstanceCount);
 
@@ -15,16 +15,26 @@ namespace Generics.Tests
 
             Assert.AreEqual(1, InstanceCounter.InstanceCount);
 
-            ic = null;
-            foo();
+            InstanceCounter ic2 = new InstanceCounter();
+
+            Assert.AreEqual(2, InstanceCounter.InstanceCount);
+
+            ic.Dispose();
+            ic2.Dispose();
         }
 
-
-        public void foo()
+        [TestMethod]
+        public void InstanceCounter_CreateInstanceAndDisposeInstance_CounterIncrementsAndDecrements()
         {
-
             Assert.AreEqual(0, InstanceCounter.InstanceCount);
 
+            InstanceCounter ic = new InstanceCounter();
+            
+            Assert.AreEqual(1, InstanceCounter.InstanceCount);
+
+            ic.Dispose();
+
+            Assert.AreEqual(0, InstanceCounter.InstanceCount);
         }
     }
 }
