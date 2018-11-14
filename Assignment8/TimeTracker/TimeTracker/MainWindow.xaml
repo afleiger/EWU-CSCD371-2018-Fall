@@ -7,21 +7,36 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid x:Name="MainGrid" Margin="10,10">
+
+        <Grid.Resources>
+            <Style x:Key="MyTextStyle" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="40"/>
+                <Setter Property="Height" Value="60"/>
+            </Style>
+        </Grid.Resources>
+
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="3.5*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width =".7*"/>
             <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+
 
         </Grid.ColumnDefinitions>
 
-        <TextBlock x:Name="CurrentTime" Background="Gold" TextAlignment="Center" FontSize="45" Margin="10,10" Height="60" Width="300"></TextBlock>
-        <ListBox x:Name="TimeList" Grid.Row="1" Grid.ColumnSpan="2" Margin="10,10" Background="LightGray"></ListBox>
+        <TextBlock x:Name="CurrentTime" Background="LightGray" TextAlignment="Center" Style="{StaticResource MyTextStyle}"></TextBlock>
+        <ListBox x:Name="StartTimeList" Grid.Row="1" Background="LightGray" Margin="0,4"/>
+        <ListBox x:Name="EndTimeList" Grid.Row="1" Grid.Column="1" Background="LightGray" Margin="0,4"/>
+        <ListBox x:Name="TimeCountList" Grid.Row="1" Grid.Column="2" Background="LightGray" Margin="0,4"/>
 
-        <Button x:Name="StartButton" Content="Start" FontSize="30" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="1" Height="60" Width="150" Click="StartButton_Click"></Button>
-            
+
+
+        <Button x:Name="StartButton" Content="Start" FontSize="30" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="4,0" Grid.Column="1" Grid.ColumnSpan="2" Height="60" Width="150" Click="StartButton_Click"></Button>
+        <Button x:Name="DeleteButton" Content="Delete" FontSize="15" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2" Margin="8" Height="30" Width="150"/>
 
     </Grid>
 </Window>

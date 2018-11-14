@@ -23,6 +23,7 @@ namespace TimeTracker
     {
         private bool _isRunning;
         private DispatcherTimer _timer;
+        private DateTime _startTime;
 
         public MainWindow()
         {
@@ -46,12 +47,23 @@ namespace TimeTracker
                 StartButton.Background = Brushes.LightGray;
                 StartButton.Content = "Start";
                 _isRunning = false;
+
+
+                DateTime endTime = DateTime.Now;
+                EndTimeList.Items.Add(endTime.ToLongTimeString());
+                TimeSpan span = endTime - _startTime;
+
+                TimeCountList.Items.Add($"{span.Hours}:{span.Minutes}:{span.Seconds}");
+
             }
             else
             {
                 StartButton.Background = Brushes.Pink;
                 StartButton.Content = "Stop";
                 _isRunning = true;
+
+                _startTime = DateTime.Now;
+                StartTimeList.Items.Add(_startTime.ToLongTimeString());
             }
             
         }
