@@ -8,6 +8,11 @@ namespace TimeTracker
 {
     public interface IDateTime
     {
-        String Now();
+        string NowString { get; }
+        string EndString { get; }
+        string StartString { get; }
+        TimeSpan CalcSpan();
+        void StartTimer();
+        void EndTimer();
     }
 }

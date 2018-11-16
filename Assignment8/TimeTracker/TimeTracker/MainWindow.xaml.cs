@@ -23,8 +23,8 @@ namespace TimeTracker
     {
         private bool IsRunning { get; set; }
         private DispatcherTimer Timer { get; set; }
-        private TimeManager Time { get; set; }
-        private int Count { get; set; }
+        private TimeManager TimeManager { get; set; }
+        private int ListIndex { get; set; }
         private int AnimationFrame { get; set; }
         private bool IsAnimationGoingUp { get; set; }
         public int DeleteIndex { get; private set; }
@@ -32,23 +32,24 @@ namespace TimeTracker
         public MainWindow()
         {
             InitializeComponent();
-            Time = new TimeManager(); 
+            TimeManager = new TimeManager(new TimerDateTime()); 
             IsRunning = false;
             Timer = new DispatcherTimer();
             Timer.Interval = TimeSpan.FromMilliseconds(20);
             Timer.Tick += Timer_Tick;
             Timer.Start();
-            Count = -1;
+            ListIndex = 0;
 
             AnimationFrame = 0;
             IsAnimationGoingUp = true;
 
+            TimeManager.UpdateEvent += TimeList_Updated;
             TimeList.GotFocus += TimeList_GotFocus;
         }
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            CurrentTime.Text = Time.NowString;
+            CurrentTime.Text = TimeManager.NowString;
             AnimateLine();
         }
 
@@ -57,12 +58,12 @@ namespace TimeTracker
             DeleteButton.IsEnabled = true;
             DeleteIndex = TimeList.SelectedIndex;
         }
-
+        
         private void AnimateLine()
         {
             if(IsRunning)
             {
-                string str = ((TextBlock)(TimeList.Items[Count])).Text;
+                string str = ((TextBlock)(TimeList.Items[ListIndex])).Text;
                 if (AnimationFrame <= 7 && IsAnimationGoingUp)
                 {
                     str = str.Substring(0, str.Length - 1);
@@ -77,14 +78,13 @@ namespace TimeTracker
                 if(AnimationFrame >= 0 && !IsAnimationGoingUp)
                 {
                     str = str.Substring(0, str.Length - 1);
-                    //str += "-";
                     AnimationFrame--;
                 }
                 else
                 {
                     IsAnimationGoingUp = true;
                 }
-                ((TextBlock)(TimeList.Items[Count])).Text = str;
+                ((TextBlock)(TimeList.Items[ListIndex])).Text = str;
             }
         }
 
@@ -100,35 +100,37 @@ namespace TimeTracker
                 StartButton.Content = "Start";
                 IsRunning = false;
 
-                ((TextBlock)(TimeList.Items[Count])).Text = Time.EndTimer();
+                TimeManager.EndTimer();
+                ListIndex++;
             }
             else
             {
                 AnimationFrame = 0;
                 CurrentTime.Background = Brushes.Black;
                 CurrentTime.Foreground = Brushes.White;
-
                 StartButton.Background = Brushes.Pink;
                 StartButton.Content = "Stop";
                 IsRunning = true;
 
                 TextBlock textBlock = new TextBlock();
                 textBlock.FontSize = 30;
-                textBlock.Text = Time.StartTimer();
+                textBlock.Text = TimeManager.StartTimer();
                 TimeList.Items.Add(textBlock);
-
-                Count++;
             }  
         }
+
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
             DeleteButton.IsEnabled = false;
 
-            if(TimeList.SelectedIndex != Count)
+            if(TimeList.SelectedIndex != ListIndex)
             {
                 TimeList.Items.RemoveAt(TimeList.SelectedIndex);
-                Count--;
+                ListIndex--;
             }
         }
+
+        private void TimeList_Updated(object sender, TimeArgs e)
+            => ((TextBlock)(TimeList.Items[ListIndex])).Text = e.TimeString;
     }
 }

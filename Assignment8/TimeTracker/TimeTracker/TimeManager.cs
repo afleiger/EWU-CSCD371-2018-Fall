@@ -1,47 +1,45 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Documents;
 
 namespace TimeTracker
 {
     public class TimeManager
     {
-        public DateTime Start { get; set; }
-        public DateTime End { get; set; }
-        public DateTime Now
+        public Action<object, TimeArgs> UpdateEvent { get; set; }
+        
+        private IDateTime TimeSource { get; set; }
+
+        public string SpanString
         {
             get
             {
-                return DateTime.Now;
+                return TimeSource.CalcSpan().ToString();
             }
         }
+
         public string NowString
         {
             get
             {
-                return Now.ToLongTimeString();
+                return TimeSource.NowString;
             }
+        }
+
+        public TimeManager(IDateTime timeSource)
+        {
+            TimeSource = timeSource;
         }
 
         public string StartTimer()
         {
-            Start = Now;
-            return $"{Start.ToLongTimeString()}  ";
+            TimeSource.StartTimer();
+            return $"{TimeSource.StartString}  ";
         }
 
-        public string EndTimer()
+        public void EndTimer()
         {
-            End = Now;
-            return $"{Start.ToLongTimeString()} -------- {End.ToLongTimeString()}      {TimerTime()}";
-        }
-
-        private string TimerTime()
-        {
-            TimeSpan span = End - Start;
-            return $"{span.Hours}:{span.Minutes}:{span.Seconds}";
+            TimeSource.EndTimer();
+            string str = $"{TimeSource.StartString} -------- {TimeSource.EndString}      {SpanString}";
+            UpdateEvent?.Invoke(this, new TimeArgs() { TimeString = str });
         }
     }
 }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TimeTracker"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="TimeTracker" Height="450" Width="800">
     <Grid x:Name="MainGrid" Margin="10,10">
 
         <Grid.Resources>
@@ -21,9 +21,9 @@
             <RowDefinition Height="95"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.5*"/>
             <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="150"/>
 
 
         </Grid.ColumnDefinitions>
@@ -31,9 +31,8 @@
         <TextBlock x:Name="CurrentTime" Background="LightGray" TextAlignment="Center" Style="{StaticResource MyTextStyle}"></TextBlock>
         <ListBox x:Name="TimeList" Grid.Row="1" Grid.ColumnSpan="3" Background="LightGray" Margin="0,4"/>
 
-
         <Button x:Name="StartButton" Content="Start" Background="LightGreen" FontSize="30" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="4,0" Grid.Column="1" Grid.ColumnSpan="2" Height="60" Width="150" Click="StartButton_Click"/>
-        <Button x:Name="DeleteButton" Content="Delete" FontSize="15" HorizontalAlignment="Right" Grid.Column="2" Grid.Row="2" Margin="0,12,8,11" Height="60" Width="150" IsEnabled="False" Click="DeleteButton_Click"/>
+        <Button x:Name="DeleteButton" Content="Delete" FontSize="30" HorizontalAlignment="Right" Margin="0" Grid.Column="2" Grid.Row="2" Height="60" Width="150" IsEnabled="False" Click="DeleteButton_Click"/>
 
     </Grid>
 </Window>
