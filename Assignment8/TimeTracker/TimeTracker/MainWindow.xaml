@@ -16,9 +16,9 @@
         </Grid.Resources>
 
         <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="3.5*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="95"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
@@ -29,14 +29,11 @@
         </Grid.ColumnDefinitions>
 
         <TextBlock x:Name="CurrentTime" Background="LightGray" TextAlignment="Center" Style="{StaticResource MyTextStyle}"></TextBlock>
-        <ListBox x:Name="StartTimeList" Grid.Row="1" Background="LightGray" Margin="0,4"/>
-        <ListBox x:Name="EndTimeList" Grid.Row="1" Grid.Column="1" Background="LightGray" Margin="0,4"/>
-        <ListBox x:Name="TimeCountList" Grid.Row="1" Grid.Column="2" Background="LightGray" Margin="0,4"/>
+        <ListBox x:Name="TimeList" Grid.Row="1" Grid.ColumnSpan="3" Background="LightGray" Margin="0,4"/>
 
 
-
-        <Button x:Name="StartButton" Content="Start" FontSize="30" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="4,0" Grid.Column="1" Grid.ColumnSpan="2" Height="60" Width="150" Click="StartButton_Click"></Button>
-        <Button x:Name="DeleteButton" Content="Delete" FontSize="15" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2" Margin="8" Height="30" Width="150"/>
+        <Button x:Name="StartButton" Content="Start" Background="LightGreen" FontSize="30" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="4,0" Grid.Column="1" Grid.ColumnSpan="2" Height="60" Width="150" Click="StartButton_Click"/>
+        <Button x:Name="DeleteButton" Content="Delete" FontSize="15" HorizontalAlignment="Right" Grid.Column="2" Grid.Row="2" Margin="0,12,8,11" Height="60" Width="150" IsEnabled="False" Click="DeleteButton_Click"/>
 
     </Grid>
 </Window>

@@ -21,51 +21,114 @@ namespace TimeTracker
     /// </summary>
     public partial class MainWindow : Window
     {
-        private bool _isRunning;
-        private DispatcherTimer _timer;
-        private DateTime _startTime;
+        private bool IsRunning { get; set; }
+        private DispatcherTimer Timer { get; set; }
+        private TimeManager Time { get; set; }
+        private int Count { get; set; }
+        private int AnimationFrame { get; set; }
+        private bool IsAnimationGoingUp { get; set; }
+        public int DeleteIndex { get; private set; }
 
         public MainWindow()
         {
             InitializeComponent();
-            _isRunning = false;
-            _timer = new DispatcherTimer();
-            _timer.Interval = TimeSpan.FromMilliseconds(50);
-            _timer.Tick += Timer_Tick;
-            _timer.Start();
+            Time = new TimeManager(); 
+            IsRunning = false;
+            Timer = new DispatcherTimer();
+            Timer.Interval = TimeSpan.FromMilliseconds(20);
+            Timer.Tick += Timer_Tick;
+            Timer.Start();
+            Count = -1;
+
+            AnimationFrame = 0;
+            IsAnimationGoingUp = true;
+
+            TimeList.GotFocus += TimeList_GotFocus;
         }
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            CurrentTime.Text = DateTime.Now.ToLongTimeString();
+            CurrentTime.Text = Time.NowString;
+            AnimateLine();
+        }
+
+        private void TimeList_GotFocus(object sender, RoutedEventArgs e)
+        {
+            DeleteButton.IsEnabled = true;
+            DeleteIndex = TimeList.SelectedIndex;
+        }
+
+        private void AnimateLine()
+        {
+            if(IsRunning)
+            {
+                string str = ((TextBlock)(TimeList.Items[Count])).Text;
+                if (AnimationFrame <= 7 && IsAnimationGoingUp)
+                {
+                    str = str.Substring(0, str.Length - 1);
+                    str += " -";
+                    AnimationFrame++;
+                }
+                else
+                {
+                    IsAnimationGoingUp = false;
+                }
+
+                if(AnimationFrame >= 0 && !IsAnimationGoingUp)
+                {
+                    str = str.Substring(0, str.Length - 1);
+                    //str += "-";
+                    AnimationFrame--;
+                }
+                else
+                {
+                    IsAnimationGoingUp = true;
+                }
+                ((TextBlock)(TimeList.Items[Count])).Text = str;
+            }
         }
 
         private void StartButton_Click(object sender, RoutedEventArgs e)
         {
-            if(_isRunning)
+            DeleteButton.IsEnabled = false;
+
+            if (IsRunning)
             {
-                StartButton.Background = Brushes.LightGray;
+                CurrentTime.Background = Brushes.LightGray;
+                CurrentTime.Foreground = Brushes.Black;
+                StartButton.Background = Brushes.LightGreen;
                 StartButton.Content = "Start";
-                _isRunning = false;
+                IsRunning = false;
 
-
-                DateTime endTime = DateTime.Now;
-                EndTimeList.Items.Add(endTime.ToLongTimeString());
-                TimeSpan span = endTime - _startTime;
-
-                TimeCountList.Items.Add($"{span.Hours}:{span.Minutes}:{span.Seconds}");
-
+                ((TextBlock)(TimeList.Items[Count])).Text = Time.EndTimer();
             }
             else
             {
+                AnimationFrame = 0;
+                CurrentTime.Background = Brushes.Black;
+                CurrentTime.Foreground = Brushes.White;
+
                 StartButton.Background = Brushes.Pink;
                 StartButton.Content = "Stop";
-                _isRunning = true;
+                IsRunning = true;
 
-                _startTime = DateTime.Now;
-                StartTimeList.Items.Add(_startTime.ToLongTimeString());
+                TextBlock textBlock = new TextBlock();
+                textBlock.FontSize = 30;
+                textBlock.Text = Time.StartTimer();
+                TimeList.Items.Add(textBlock);
+
+                Count++;
+            }  
+        }
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            DeleteButton.IsEnabled = false;
+
+            if(TimeList.SelectedIndex != Count)
+            {
+                TimeList.Items.RemoveAt(TimeList.SelectedIndex);
+                Count--;
             }
-            
         }
     }
 }
