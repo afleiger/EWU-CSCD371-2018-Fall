@@ -33,7 +33,7 @@ namespace DataAnalyzer.Tests
         }
 
         [TestMethod]
-        public void Randomize()
+        public void Randomize_CreateThreeRandomizedLists_ListIsNotSequenceEqual()
         {
             List<string> list = PatentDataAnalyzer.InventorLastNames().ToList();
             List<string> randomizedList = list.Randomize().ToList();
